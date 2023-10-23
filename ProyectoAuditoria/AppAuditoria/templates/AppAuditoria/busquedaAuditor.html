@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% extends 'AppAuditoria/base.html' %}
+
+{% load static %}
+
+{% block section1 %}
+
+<html>
+<head>
+    <title>Búsqueda de Auditores</title>
+</head>
+<body>
+    <h1>Buscar Auditor</h1>
+     
+    <form action="/AppAuditoria/buscar/" method="GET">
+        <input type="text" name="nombre" id="auditor" placeholder="Nombre del Auditor">
+        <input type="submit" value="Buscar">
+    </form>
+
+    <h2>Resultados</h2>
+    <ul>
+        <!-- Aquí puedes mostrar los resultados de la búsqueda si lo deseas -->
+    </ul>
+</body>
+</html>
+
+{% endblock %}

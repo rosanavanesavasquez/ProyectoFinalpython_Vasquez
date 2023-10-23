@@ -64,3 +64,10 @@ def auditorFormulario(request):
         miFormulario = AuditorFormulario()  # 
 
     return render(request, "AppAuditoria/auditores_Formulario.html",{"miFormulario": miFormulario})  # 
+
+def busquedaAuditor(request):
+    return render(request, "AppAuditoria/busquedaAuditor.html")
+
+def buscar(request):
+    respuesta = f"Estoy buscando el auditor nombre: {request.GET['nombre']}"
+    return HttpResponse(respuesta)
