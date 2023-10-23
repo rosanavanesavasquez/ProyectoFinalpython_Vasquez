@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Carga de Auditores</title>
+</head>
+<body>
+    <h1>Crear un nuevo auditor</h1>
+    {% if miFormulario.errors %}
+        <p style="color: red;">Corregir los datos</p>
+    {% endif %}
+    
+    <form method="POST" action="{% url 'auditorFormulario' %}">
+        {% csrf_token %}
+        <table>
+            {{ miFormulario.as_table }}
+        </table>
+        <input type="submit" value="Enviar">
+    </form>
+
+    <h2>Lista de Auditores</h2>
+    <ul>
+        {% for auditor in auditores %}
+            <li>{{ auditor.nombre }} {{ auditor.apellido }} - {{ auditor.email }}</li>
+        {% empty %}
+            <li>No hay auditores registrados.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+

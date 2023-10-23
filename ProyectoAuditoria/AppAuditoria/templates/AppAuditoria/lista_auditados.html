@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+{% extends 'AppAuditoria/base.html' %}
+
+{% load static %}
+
+{% block section1 %}
+
+<html>
+<head>
+    <title>Lista de Auditados</title>
+</head>
+<body>
+    <h1>Lista de Auditados</h1>
+    <ul>
+        {% for auditado in auditados %}
+            <li>{{ auditado.nombre }} {{ auditado.apellido }}</li>
+        {% empty %}
+            <li>No hay auditados disponibles.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
+{% endblock %}

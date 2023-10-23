@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+{% extends 'AppAuditoria/base.html' %}
+
+{% load static %}
+
+{% block section1 %}
+
+<!-- Lo comento para revisar 
+<html>
+<head>
+    <title>Informe de Auditorias</title>
+</head>
+<body>
+    <h1>Reportes de Auditorias </h1>
+    <ul>
+        {% for entregable in entregables %}
+            <li>{{ entregable.nombre }}</li>
+        {% empty %}
+            <li>No hay Reportes de Auditoría Realizados.</li>
+
+
+            
+        {% endfor %}
+    </ul>
+</body>
+</html>
+-->
+
+<div class="container">
+    <h1>Resultado de las Auditorias Realizadas</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Fecha de Auditoría</th>
+                <th>Resultado de Auditoría (OK/NG)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entregable in entregables %}
+                <tr>
+                    <td>{{ entregable.nombre }}</td>
+                    <td>{{ entregable.fechaDeAuditoria }}</td>
+                    <td>
+                        {% if entregable.auditoria_ok %} OK {% endif %}
+                        {% if entregable.auditoria_ng %} NG {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

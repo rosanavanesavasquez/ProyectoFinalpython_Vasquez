@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% extends 'AppAuditoria/base.html' %}
+
+{% load static %}
+
+{% block section1 %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario - Agregar Auditoria</title>
+</head>
+<body>
+    <form action="/AppAuditoria/entregablesFormulario/" method="post">
+        {% csrf_token %}
+        <p> Nombre: <input type="text" name="nombre">
+        <p> FechaDeAuditoria: <input type="date" name="fechaDeAuditoria">
+        <p> Resultado de Auditoría:
+            <input type="radio" name="resultado_auditoria" value="OK"> OK
+            <input type="radio" name="resultado_auditoria" value="NG"> NG
+        </p>
+        <input type="submit" value="Enviar">
+    </form>
+
+</body>
+</html>
+{% endblock %}

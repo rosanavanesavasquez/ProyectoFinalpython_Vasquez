@@ -1,0 +1,18 @@
+{% extends 'AppAuditoria/base.html' %}
+
+{% load static %}
+
+{% block section1 %}
+
+  {% if miFormulario.errors %}
+    <p style="color: red;">Verifique los datos; es posible que existan errores en los datos.</p>
+  {% endif %}
+
+  <form method="POST" action="{% url 'auditorFormulario' %}">
+    {% csrf_token %}
+    <table>
+      {{ miFormulario.as_table }}
+    </table>
+    <input type="submit" value="Enviar">
+  </form>
+{% endblock %}
