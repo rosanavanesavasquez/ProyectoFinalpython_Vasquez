@@ -19,7 +19,13 @@
 
     <h2>Resultados</h2>
     <ul>
-        <!-- Aquí puedes mostrar los resultados de la búsqueda si lo deseas -->
+ 
+        {% for resultado in resultados %}
+        <li>{{ resultado.nombre }} {{ resultado.apellido }}</li>
+    {% empty %}
+        <li>No se encontraron resultados.</li>
+    {% endfor %}
+    
     </ul>
 </body>
 </html>

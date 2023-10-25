@@ -69,5 +69,7 @@ def busquedaAuditor(request):
     return render(request, "AppAuditoria/busquedaAuditor.html")
 
 def buscar(request):
-    respuesta = f"Estoy buscando el auditor nombre: {request.GET['nombre']}"
-    return HttpResponse(respuesta)
+    nombre = request.GET.get('nombre')
+    resultados = Auditor.objects.filter(nombre__icontains=nombre)
+    contexto = {'resultados': resultados}
+    return render(request, 'AppAuditoria/busquedaAuditor.html', contexto)
