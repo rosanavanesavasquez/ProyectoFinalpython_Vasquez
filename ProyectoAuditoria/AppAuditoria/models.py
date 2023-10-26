@@ -22,9 +22,12 @@ class Auditado(models.Model):
 # Modelo para Sectores
 class Sector(models.Model):
     nombre = models.CharField(max_length=100)
+    UAP = models.CharField(max_length=3, default='Todas')
+    UAT = models.CharField(max_length=3, default='Todas')
 
     def __str__(self):
         return self.nombre
+
 
 # Modelo para Entregable
 class Entregable(models.Model):

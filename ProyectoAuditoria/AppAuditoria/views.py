@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import redirect
 from .models import Auditor, Auditado, Sector, Entregable
-from AppAuditoria.forms import AuditorFormulario
+from AppAuditoria.forms import AuditorFormulario, SectorForm
 #def vista_ejemplo(request):
 #   return HttpResponse("Esta es una vista de ejemplo en AppAuditoria.")
 
@@ -73,3 +74,20 @@ def buscar(request):
     resultados = Auditor.objects.filter(nombre__icontains=nombre)
     contexto = {'resultados': resultados}
     return render(request, 'AppAuditoria/busquedaAuditor.html', contexto)
+
+def agregar_sector(request):
+    if request.method == 'POST':
+        form = SectorForm(request.POST)
+        if form.is_valid():
+                  
+            nuevo_sector = Sector(
+                nombre=form.cleaned_data['nombre'],
+                UAP=form.cleaned_data['UAP'],
+                UAT=form.cleaned_data['UAT']
+            )
+
+            nuevo_sector.save()
+            return redirect('lista_sectores')
+    else:
+        form = SectorForm()
+    return render(request, 'appauditoria/agregar_sector.html', {'form': form})

@@ -12,4 +12,5 @@ urlpatterns = [
     path('auditorFormulario/', views.auditorFormulario, name='auditorFormulario'),
     path('busquedaAuditor/', views.busquedaAuditor, name= "BusquedaAuditor"),
     path('buscar/', views.buscar),
+    path('agregar_sector/', views.agregar_sector, name='agregar_sector'),
 ]

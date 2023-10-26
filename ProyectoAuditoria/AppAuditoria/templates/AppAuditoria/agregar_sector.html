@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% extends 'AppAuditoria/base.html' %}
+
+{% load static %}
+
+{% block section1 %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agregar Sector</title>
+</head>
+<body>
+    <h1>Agregar Sector</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+    </form>
+</body>
+</html>
+
+
+
+{% endblock %}

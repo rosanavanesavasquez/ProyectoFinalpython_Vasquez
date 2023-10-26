@@ -14,13 +14,16 @@
     <h1>Lista de Sectores</h1>
     <ul>
         {% for sector in sectores %}
-            <li>{{ sector.nombre }}</li>
+            <li>
+                <strong>Nombre del Sector:</strong> {{ sector.nombre }}<br>
+                <strong>UAP:</strong> {{ sector.UAP }}<br>
+                <strong>UAT:</strong> {{ sector.UAT }}
+            </li>
         {% empty %}
             <li>No hay sectores disponibles.</li>
         {% endfor %}
     </ul>
 </body>
 </html>
-
 
 {% endblock %}
