@@ -3,8 +3,6 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from .models import Auditor, Auditado, Sector, Entregable
 from AppAuditoria.forms import AuditorFormulario, SectorForm
-#def vista_ejemplo(request):
-#   return HttpResponse("Esta es una vista de ejemplo en AppAuditoria.")
 
 def pagina_de_inicio(request):
     return render(request, 'AppAuditoria/index.html')
@@ -91,3 +89,24 @@ def agregar_sector(request):
     else:
         form = SectorForm()
     return render(request, 'appauditoria/agregar_sector.html', {'form': form})
+
+#def delete_sector(request, sector_nombre):
+#    print(type(sector_nombre))
+#    sector = Sector.objects.get(nombre=sector_nombre)
+#    sector.delete()
+#    #vuelvo al menu
+#    sector = Sector.objects.all()
+#    contexto = {"sector": sector}
+#    return render(request,"AppAuditoria/lista_sectores.html", contexto)
+
+def delete_sector(request, sector_id):
+    print(type(sector_id))
+    sector= Sector.objects.get(id=sector_id)
+    sector.delete()
+    sectores = Sector.objects.all()
+    return render(request, 'appauditoria/lista_sectores.html', {'sectores': sectores})
+     
+
+ 
+    
+    

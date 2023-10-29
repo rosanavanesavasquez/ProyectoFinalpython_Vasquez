@@ -13,4 +13,6 @@ urlpatterns = [
     path('busquedaAuditor/', views.busquedaAuditor, name= "BusquedaAuditor"),
     path('buscar/', views.buscar),
     path('agregar_sector/', views.agregar_sector, name='agregar_sector'),
+    #path('delete-sector/<str:sector_nombre>/', views.delete_sector, name='DeleteSector'),    
+    path('delete-sector/<int:sector_id>/',views.delete_sector,name='DeleteSector')
 ]
