@@ -1,9 +1,24 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from .models import Auditor, Auditado, Sector, Entregable
 from AppAuditoria.forms import AuditorFormulario, SectorForm
+#Clases Basadas en vistas
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
+from django.views.generic.edit import UpdateView
+from django.views.generic.edit import DeleteView
 
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout, authenticate
+
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+
+@login_required
 def pagina_de_inicio(request):
     return render(request, 'AppAuditoria/index.html')
 
@@ -105,8 +120,98 @@ def delete_sector(request, sector_id):
     sector.delete()
     sectores = Sector.objects.all()
     return render(request, 'appauditoria/lista_sectores.html', {'sectores': sectores})
-     
 
- 
+def edit_sector(request, sector_id):
+    sector = get_object_or_404(Sector, pk=sector_id)
+    sector_id=Sector.objects.get(id=sector_id)
     
+    if request.method == 'POST':
+    
+        form = SectorForm(request.POST)
+        
+        if form.is_valid():
+            informacion= form.cleaned_data
+            
+            sector=Sector.objects.get(id=sector_id)
+            sector.nombre = informacion['UAP']
+            sector.nombre = informacion['UAP']
+            form.save()
+            return redirect('AppAuditoria/lista_sectores.html')
+    else:
+        form = SectorForm(initial={'nombre':sector.nombre})
+
+    return render(request, 'appauditoria/edit_sector.html', {'form': form})
+
+#Clases basadas en vistas 
+class SectorList(ListView):
+    model=Sector
+    template_name= "AppAuditoria/sector_list.html"
+
+class SectorDetalle(DetailView):
+    model=Sector
+    template_name = "AppAuditoria/sector_detalle.html"
+    
+class SectorCreacion(CreateView):
+    
+    model = Sector
+    success_url = "/AppAuditoria/sector/list"
+    fields = ['nombre', 'UAP','UAT']
+    
+class SectorUpdate(UpdateView):
+    model = Sector
+    success_url = "/AppAuditoria/sector/list"
+    fields = ['nombre', 'UAP','UAT']
+
+class SectorDelete(DeleteView):
+    model = Sector
+    success_url = "/AppAuditoria/sector/list"
+
+
+def login_request(request):
+
+
+      if request.method == "POST":
+            form = AuthenticationForm(request, data = request.POST)
+
+            if form.is_valid():
+                  usuario = form.cleaned_data.get('username')
+                  contra = form.cleaned_data.get('password')
+                  user = authenticate(username=usuario, password=contra)
+          
+                  if user is not None:
+                        login(request, user)
+                       
+                        return render(request,'AppAuditoria/index.html',  {"mensaje":f"Bienvenido {usuario}"} )
+                  else:
+                      
+                        return render(request,'AppAuditoria/index.html', {"mensaje":"Error, datos incorrectos"} )
+            else:
+                        
+                        return render(request,'AppAuditoria/index.html' ,  {"mensaje":"Error, formulario erroneo"})
+
+      form = AuthenticationForm()
+
+      return render(request,"AppAuditoria/login.html", {'form':form} )
+
+
+
+def register(request):
+
+      if request.method == 'POST':
+
+            #form = UserCreationForm(request.POST)
+            form = UserRegisterForm(request.POST)
+            if form.is_valid():
+
+                  username = form.cleaned_data['username']
+                  form.save()
+                  return render(request,'AppAuditoria/index.html' ,  {"mensaje":"Usuario Creado :)"})
+
+      else:
+            #form = UserCreationForm()       
+            form = UserRegisterForm()     
+
+      return render(request,"AppAuditoria/registro.html" ,  {"form":form})
+
+            
     

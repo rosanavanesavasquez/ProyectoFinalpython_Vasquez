@@ -9,5 +9,5 @@ class AuditorFormulario(forms.Form):
 
 class SectorForm(forms.Form):
     nombre = forms.CharField(max_length=100)
-    UAP = forms.CharField(max_length=3, initial='Todas')  
-    UAT = forms.CharField(max_length=3, initial='Todas')
+    UAP = forms.CharField(max_length=5, initial='Todas')  
+    UAT = forms.CharField(max_length=5, initial='Todas')

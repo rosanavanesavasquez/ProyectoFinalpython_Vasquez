@@ -18,10 +18,11 @@
                 <form method="post" action="{% url 'DeleteSector' sector.id %}">
                     {% csrf_token %}
                     <button type="submit">Eliminar</button>
-                </form>
+              </form>
+               <a href="{% url 'EditSector' sector.id %}">Editar</a>
             </li>
         {% empty %}
-            <li>No hay sectores disponibles.</li>
+            <li>No hay sectores disponibles.</li> 
         {% endfor %}
     </ul>
 </body>

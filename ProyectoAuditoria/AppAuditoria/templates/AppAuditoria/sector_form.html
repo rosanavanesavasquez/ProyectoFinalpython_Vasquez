@@ -1,0 +1,15 @@
+{% block section1 %}
+<html>
+<head>
+    <title>Fomrulario de Sectores</title>
+</head>
+<body>
+    <h1>Fomrulario de Sectores</h1>
+<form method="post">
+    {%csrf_token%}
+    {{form.as_p}}
+    <input type="submit"value="Enviar"/>
+  
+</body>
+</html>
+{% endblock %}

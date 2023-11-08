@@ -14,5 +14,13 @@ urlpatterns = [
     path('buscar/', views.buscar),
     path('agregar_sector/', views.agregar_sector, name='agregar_sector'),
     #path('delete-sector/<str:sector_nombre>/', views.delete_sector, name='DeleteSector'),    
-    path('delete-sector/<int:sector_id>/',views.delete_sector,name='DeleteSector')
+    path('delete-sector/<int:sector_id>/',views.delete_sector,name='DeleteSector'),
+    path('edit-sector/<int:sector_id>/',views.edit_sector,name='EditSector'),    
+    path('sector/list', views.SectorList.as_view(), name='List'),
+    path(r'^(?P<pk>\d+)$', views.SectorDetalle.as_view(), name='Detail'),
+    path(r'^nuevo$',views.SectorCreacion.as_view(),name='New'),
+    path(r'editar/(?P<pk>\d+)$', views.SectorUpdate.as_view(), name='Edit'),
+    path(r'borrar/(?P<pk>\d+)$', views.SectorDelete.as_view(), name='Delete'),    
+    path('login', views.login_request, name="Login")
+    
 ]
