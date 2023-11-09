@@ -10,12 +10,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Lista de Entregables</title>
 </head>
 <body>
-    {% for e in entregables %}
-        <li>{{e}}</li>
-    {% endfor %}
+    <h2>Lista de Entregables</h2>
+    <ul>
+        {% for e in entregables %}
+            <li>
+                <strong>Nombre:</strong> {{ e.nombre }}<br>
+                <strong>Fecha de Auditoría:</strong> {{ e.fechaDeAuditoria }}<br>
+                <strong>Auditoría OK:</strong> {% if e.auditoria_ok %}Sí{% else %}No{% endif %}<br>
+                <strong>Auditoría NG:</strong> {% if e.auditoria_ng %}Sí{% else %}No{% endif %}<br>
+            </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
 

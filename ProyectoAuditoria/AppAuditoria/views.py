@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from .models import Auditor, Auditado, Sector, Entregable
 from AppAuditoria.forms import AuditorFormulario, SectorForm
+
 #Clases Basadas en vistas
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
@@ -11,12 +12,18 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
 
+#PAra el Login - Log out -Edición de usuarios
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 
-
+#Decorador por defecto
 from django.contrib.auth.decorators import login_required
+from django.views.generic.base import TemplateView
+
 from django.shortcuts import render
+from django.contrib.auth.forms import UserCreationForm
+
 
 @login_required
 def pagina_de_inicio(request):
@@ -121,26 +128,7 @@ def delete_sector(request, sector_id):
     sectores = Sector.objects.all()
     return render(request, 'appauditoria/lista_sectores.html', {'sectores': sectores})
 
-def edit_sector(request, sector_id):
-    sector = get_object_or_404(Sector, pk=sector_id)
-    sector_id=Sector.objects.get(id=sector_id)
-    
-    if request.method == 'POST':
-    
-        form = SectorForm(request.POST)
-        
-        if form.is_valid():
-            informacion= form.cleaned_data
-            
-            sector=Sector.objects.get(id=sector_id)
-            sector.nombre = informacion['UAP']
-            sector.nombre = informacion['UAP']
-            form.save()
-            return redirect('AppAuditoria/lista_sectores.html')
-    else:
-        form = SectorForm(initial={'nombre':sector.nombre})
 
-    return render(request, 'appauditoria/edit_sector.html', {'form': form})
 
 #Clases basadas en vistas 
 class SectorList(ListView):
@@ -168,8 +156,6 @@ class SectorDelete(DeleteView):
 
 
 def login_request(request):
-
-
       if request.method == "POST":
             form = AuthenticationForm(request, data = request.POST)
 
@@ -192,15 +178,14 @@ def login_request(request):
       form = AuthenticationForm()
 
       return render(request,"AppAuditoria/login.html", {'form':form} )
-
-
-
+  
+  
 def register(request):
 
       if request.method == 'POST':
 
-            #form = UserCreationForm(request.POST)
-            form = UserRegisterForm(request.POST)
+            form = UserCreationForm(request.POST)
+            #form = UserRegisterForm(request.POST)
             if form.is_valid():
 
                   username = form.cleaned_data['username']
@@ -208,10 +193,15 @@ def register(request):
                   return render(request,'AppAuditoria/index.html' ,  {"mensaje":"Usuario Creado :)"})
 
       else:
-            #form = UserCreationForm()       
-            form = UserRegisterForm()     
+          form= UserCreationForm()
+           #form = UserRegisterForm()     
 
       return render(request,"AppAuditoria/registro.html" ,  {"form":form})
 
+
+def logout_request(request):
+      logout(request)
+     
+      return redirect('pagina_de_inicio')
             
     
