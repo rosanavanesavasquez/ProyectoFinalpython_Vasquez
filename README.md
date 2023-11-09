@@ -23,7 +23,7 @@ Permite a los usuarios realizar auditorías rápidas, registrar auditores y gest
    cd AppAuditoria
 
 **Instalar Dependencias:
-pip install -r requirements.txt
+pip install -r 
 
 **Aplicar Migraciones:
 python manage.py migrate
